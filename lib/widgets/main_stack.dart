@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../models/info.dart';
 import '../main.dart';
 import '../providers/weather.dart';
@@ -22,6 +21,7 @@ class _MainStackState extends State<MainStack>
   bool isValid = true;
   bool isLoading = false;
   Map<dynamic, dynamic>? data;
+  late String error;
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -52,9 +52,10 @@ class _MainStackState extends State<MainStack>
       info = newInfo;
       data = weatherData;
     } catch (err) {
+      error = err.toString();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           action: SnackBarAction(
             label: 'Reload',
             textColor: Colors.white,
@@ -105,17 +106,17 @@ class _MainStackState extends State<MainStack>
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                   ),
                   onRefresh: () {
-                    Future.delayed(Duration(seconds: 1)).then(
+                    Future.delayed(const Duration(seconds: 1)).then(
                       (_) => Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => MainStack(),
+                          builder: (context) => const MainStack(),
                         ),
                       ),
                     );
                   },
                   child: Center(
                     child: Text(
-                      'error has been occurred\nplease pull to refresh',
+                      '$error\n\nplease pull to refresh',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: secondaryColor,
@@ -157,7 +158,7 @@ class _MainStackState extends State<MainStack>
                           child: TextButton(
                             onPressed: () {
                               pageController.animateToPage(0,
-                                  duration: Duration(seconds: 1),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeInOut);
                             },
                             child: const Text(
@@ -169,7 +170,7 @@ class _MainStackState extends State<MainStack>
                           ),
                         ),
                         AnimatedSmoothIndicator(
-                          duration: Duration(seconds: 1),
+                          duration: const Duration(milliseconds: 500),
                           activeIndex: pageCount,
                           count: 2,
                           effect: const WormEffect(
@@ -187,7 +188,7 @@ class _MainStackState extends State<MainStack>
                           child: TextButton(
                             onPressed: () {
                               pageController.animateToPage(1,
-                                  duration: Duration(seconds: 1),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.easeInOut);
                             },
                             child: const Text(

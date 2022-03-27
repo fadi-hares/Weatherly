@@ -10,7 +10,7 @@ class MainScreen extends StatefulWidget {
   final bool isValid;
   final Info info;
 
-  MainScreen({
+  const MainScreen({
     required this.data,
     required this.info,
     required this.isValid,
@@ -32,7 +32,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color secondaryColor = Theme.of(context).colorScheme.secondary;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

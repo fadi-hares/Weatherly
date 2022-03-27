@@ -17,7 +17,7 @@ class _MapScreenState extends State<MapScreen> {
         Provider.of<Weather>(context, listen: false).myPosition;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map Screen'),
+        title: const Text('Map Screen'),
       ),
       body: FlutterMap(
         options: MapOptions(
@@ -43,11 +43,9 @@ class _MapScreenState extends State<MapScreen> {
                 width: 80.0,
                 height: 80.0,
                 point: LatLng(myPostion.latitude, myPostion.longitude),
-                builder: (ctx) => Container(
-                  child: Icon(
-                    Icons.location_pin,
-                    color: Colors.red,
-                  ),
+                builder: (ctx) => const Icon(
+                  Icons.location_pin,
+                  color: Colors.red,
                 ),
               ),
             ],

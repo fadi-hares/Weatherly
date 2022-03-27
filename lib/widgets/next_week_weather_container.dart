@@ -11,7 +11,7 @@ class NextWeekWeatherContainer extends StatelessWidget {
   final dynamic maxTemp;
   final String iconId;
 
-  NextWeekWeatherContainer({
+  const NextWeekWeatherContainer({
     required this.date,
     required this.iconId,
     required this.maxTemp,
@@ -31,12 +31,12 @@ class NextWeekWeatherContainer extends StatelessWidget {
     final iconColor =
         Provider.of<Weather>(context).getTheCorrectIconColor(iconId);
     return Container(
-      padding: EdgeInsets.only(right: 15),
-      margin: EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.only(right: 15),
+      margin: const EdgeInsets.symmetric(vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.25,
             child: Text(
               convertDate(),
@@ -49,7 +49,7 @@ class NextWeekWeatherContainer extends StatelessWidget {
                 '${maxTemp.toInt()}°',
                 style: kDetailScreenTxtStyle,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Text(

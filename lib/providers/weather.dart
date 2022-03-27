@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather_icons/weather_icons.dart';
 import 'package:geolocator/geolocator.dart';
-
-const String API_KEY = 'dd7b6797a6878e4aab35be6f05309465';
+import '../const/secrets.dart';
 
 class Weather extends ChangeNotifier {
   late Position myPosition;

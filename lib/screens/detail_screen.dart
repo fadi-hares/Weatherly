@@ -8,7 +8,7 @@ import 'package:weather_app/widgets/next_week_weather_container.dart';
 class DetailScreen extends StatelessWidget {
   final Map<dynamic, dynamic> data;
 
-  DetailScreen(this.data);
+  const DetailScreen(this.data);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,10 @@ class DetailScreen extends StatelessWidget {
 
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 4, 61),
+      backgroundColor: const Color.fromARGB(255, 0, 4, 61),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color.fromARGB(255, 0, 4, 61),
+        backgroundColor: const Color.fromARGB(255, 0, 4, 61),
         foregroundColor: Colors.white,
         centerTitle: true,
         title: Text(cityName()),
@@ -80,7 +80,7 @@ class DetailScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Next Week',
                   style: TextStyle(
                     color: Colors.white,
@@ -88,7 +88,7 @@ class DetailScreen extends StatelessWidget {
                     fontSize: 15,
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: size.height * 0.49,
                   child: ListView.builder(

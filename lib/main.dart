@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/providers/weather.dart';
-
 import 'package:weather_app/widgets/main_stack.dart';
 
 void main() {
@@ -22,13 +21,13 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'Gilroy',
-            primaryColor: Color.fromARGB(255, 110, 244, 249),
+            primaryColor: const Color.fromARGB(255, 110, 244, 249),
             colorScheme: ColorScheme.fromSwatch().copyWith(
-              secondary: Color.fromARGB(255, 23, 22, 119),
+              secondary: const Color.fromARGB(255, 23, 22, 119),
             ),
-            cardColor: Color.fromARGB(255, 156, 252, 255),
+            cardColor: const Color.fromARGB(255, 156, 252, 255),
           ),
-          home: MainStack()),
+          home: const MainStack()),
     );
   }
 }

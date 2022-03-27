@@ -27,8 +27,8 @@ class CardWeatherData extends StatelessWidget {
     IconData iconData =
         Provider.of<Weather>(context, listen: false).getTheCorrectIcon(icon);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
       // height: 150,
       child: ListView.builder(
         shrinkWrap: true,
@@ -47,11 +47,11 @@ class CardWeatherData extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.03,
                     child: FittedBox(
                       child: Text(
-                        '${convertDate()}',
+                        convertDate(),
                         style: TextStyle(
                           color: Theme.of(context)
                               .colorScheme

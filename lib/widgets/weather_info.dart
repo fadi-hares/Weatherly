@@ -18,6 +18,7 @@ class WeatherInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color secondaryColor = Theme.of(context).colorScheme.secondary;
+    Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Text(
@@ -27,13 +28,13 @@ class WeatherInfo extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: size.height * 0.02,
         ),
         GlowText(
           '${temp.toInt()}°',
           style: TextStyle(
             color: secondaryColor,
-            fontSize: 70,
+            fontSize: size.height * 0.09,
           ),
           blurRadius: 10,
         ),
@@ -45,7 +46,7 @@ class WeatherInfo extends StatelessWidget {
               color: secondaryColor,
               size: 20,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
@@ -56,13 +57,13 @@ class WeatherInfo extends StatelessWidget {
                 color: secondaryColor,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Icon(
               CupertinoIcons.drop,
               size: 20,
               color: secondaryColor,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Text(
