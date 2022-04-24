@@ -1,8 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/weather.dart';
+import '../providers/weather_provider.dart';
 
 class CardWeatherData extends StatelessWidget {
   String icon;
@@ -10,10 +12,11 @@ class CardWeatherData extends StatelessWidget {
   dynamic temp;
 
   CardWeatherData({
+    Key? key,
     required this.icon,
     required this.date,
     required this.temp,
-  });
+  }) : super(key: key);
 
   // convert date from Unix timestamp to human readble date
   String convertDate() {
@@ -24,8 +27,8 @@ class CardWeatherData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IconData iconData =
-        Provider.of<Weather>(context, listen: false).getTheCorrectIcon(icon);
+    IconData iconData = Provider.of<WeatherProvider>(context, listen: false)
+        .getTheCorrectIcon(icon);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 5),
       margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),

@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/models/info.dart';
-import 'package:weather_app/screens/map_screen.dart';
-import 'package:weather_app/widgets/weather_data.dart';
-import 'package:weather_app/widgets/weather_image.dart';
-import 'package:weather_app/widgets/weather_info.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/weather_provider.dart';
+import '../widgets/weather_data.dart';
+import '../widgets/weather_image.dart';
+import '../widgets/weather_info.dart';
+import 'map_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  final Map<dynamic, dynamic> data;
-  final bool isValid;
-  final Info info;
-
-  const MainScreen({
-    required this.data,
-    required this.info,
-    required this.isValid,
-  });
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -22,8 +16,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   String cityName() {
+    final weather = context.read<WeatherProvider>().state.weather;
     try {
-      String fullName = widget.data['timezone'];
+      String fullName = weather.timeZone;
       return fullName.split('/')[1];
     } catch (e) {
       return '';
@@ -48,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
                         // show on map ....
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => MapScreen(),
+                            builder: (context) => const MapScreen(),
                           ),
                         );
                       },
@@ -67,20 +62,6 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ],
                 ),
-                // IconButton(
-                //   onPressed: () {
-                //     // rebuild the app
-                //     Navigator.of(context).pushReplacement(
-                //       MaterialPageRoute(
-                //         builder: (context) => MainStack(),
-                //       ),
-                //     );
-                //   },
-                //   icon: Icon(
-                //     Icons.redo,
-                //     color: Theme.of(context).colorScheme.secondary,
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -91,14 +72,9 @@ class _MainScreenState extends State<MainScreen> {
         color: Theme.of(context).primaryColor,
         child: Column(
           children: [
-            WeatherImage(widget.info.icon),
-            WeatherInfo(
-              condition: widget.info.situation,
-              humidity: widget.info.humidity,
-              temp: widget.info.temprature,
-              windSpeed: widget.info.windSpeed,
-            ),
-            WeatherData(widget.data),
+            const WeatherImage(),
+            const WeatherInfo(),
+            WeatherData(),
           ],
         ),
       ),

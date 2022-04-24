@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/providers/weather.dart';
 
 import '../const/const.dart';
+import '../providers/weather_provider.dart';
 
 class NextWeekWeatherContainer extends StatelessWidget {
   final int date;
@@ -12,11 +12,12 @@ class NextWeekWeatherContainer extends StatelessWidget {
   final String iconId;
 
   const NextWeekWeatherContainer({
+    Key? key,
     required this.date,
     required this.iconId,
     required this.maxTemp,
     required this.minTemp,
-  });
+  }) : super(key: key);
 
   // convert date from Unix timestamp to human readble date
   String convertDate() {
@@ -27,9 +28,10 @@ class NextWeekWeatherContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconData = Provider.of<Weather>(context).getTheCorrectIcon(iconId);
+    final iconData =
+        Provider.of<WeatherProvider>(context).getTheCorrectIcon(iconId);
     final iconColor =
-        Provider.of<Weather>(context).getTheCorrectIconColor(iconId);
+        Provider.of<WeatherProvider>(context).getTheCorrectIconColor(iconId);
     return Container(
       padding: const EdgeInsets.only(right: 15),
       margin: const EdgeInsets.symmetric(vertical: 15),

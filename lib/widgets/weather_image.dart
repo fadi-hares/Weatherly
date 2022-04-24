@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:weather_app/providers/weather.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/weather_provider.dart';
 
 class WeatherImage extends StatelessWidget {
-  late String icon;
-
-  WeatherImage(this.icon);
+  const WeatherImage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final String icon = context.read<WeatherProvider>().state.weather.icon;
     var size = MediaQuery.of(context).size;
     String svgImage =
-        Provider.of<Weather>(context).getTheCorrectWeatherSVG(icon);
+        Provider.of<WeatherProvider>(context).getTheCorrectWeatherSVG(icon);
 
     return Container(
       margin:

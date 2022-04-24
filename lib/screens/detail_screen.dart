@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/const/const.dart';
-import 'package:weather_app/providers/weather.dart';
-import 'package:weather_app/widgets/next_week_weather_container.dart';
+
+import '../const/const.dart';
+import '../providers/weather_provider.dart';
+import '../widgets/next_week_weather_container.dart';
 
 class DetailScreen extends StatelessWidget {
-  final Map<dynamic, dynamic> data;
-
-  const DetailScreen(this.data);
+  const DetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final iconId = data['current']['weather'][0]['icon'];
-    final String svgImage =
-        Provider.of<Weather>(context).getTheCorrectWeatherSVG(iconId);
+    final weatherProvider = context.read<WeatherProvider>();
 
     String cityName() {
-      String fullName = data['timezone'];
+      String fullName = weatherProvider.state.weather.timeZone;
       return fullName.split('/')[1];
     }
+
+    final weather = context.read<WeatherProvider>();
+    final String iconId = weather.state.weather.icon;
+    final String svgImage = weather.getTheCorrectWeatherSVG(iconId);
 
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -57,9 +58,9 @@ class DetailScreen extends StatelessWidget {
                     ),
                     child: FittedBox(
                       child: Text(
-                        data['alerts'] == null
+                        weather.state.weather.alerts == null
                             ? 'No alerts today'
-                            : data['alerts'][0]['description'],
+                            : weather.state.weather.alerts!['description'],
                         style: kDetailScreenTxtStyle.copyWith(
                           fontSize: 15,
                         ),
@@ -95,10 +96,13 @@ class DetailScreen extends StatelessWidget {
                     itemCount: 7,
                     itemBuilder: (context, index) {
                       return NextWeekWeatherContainer(
-                        date: data['daily'][index]['dt'],
-                        iconId: data['daily'][index]['weather'][0]['icon'],
-                        maxTemp: data['daily'][index]['temp']['max'],
-                        minTemp: data['daily'][index]['temp']['min'],
+                        date: weather.state.weather.daily[index]['dt'],
+                        iconId: weather.state.weather.daily[index]['weather'][0]
+                            ['icon'],
+                        maxTemp: weather.state.weather.daily[index]['temp']
+                            ['max'],
+                        minTemp: weather.state.weather.daily[index]['temp']
+                            ['min'],
                       );
                     },
                   ),

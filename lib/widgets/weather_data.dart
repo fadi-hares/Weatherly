@@ -1,16 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../models/weather.dart';
+import '../providers/weather_provider.dart';
 import 'card_weather_data.dart';
 
 class WeatherData extends StatelessWidget {
-  final Map<dynamic, dynamic> data;
-  WeatherData(this.data);
-
   var date = DateFormat('EEE, d MMM').format(DateTime.now());
+
+  WeatherData({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Weather weather = context.read<WeatherProvider>().state.weather;
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
       child: Column(
@@ -26,12 +31,12 @@ class WeatherData extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.25,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: data['hourly'].length,
+              itemCount: weather.hourly.length,
               itemBuilder: (context, index) {
                 return CardWeatherData(
-                  icon: data['hourly'][index]['weather'][0]['icon'],
-                  date: data['hourly'][index]['dt'],
-                  temp: data['hourly'][index]['temp'],
+                  icon: weather.hourly[index]['weather'][0]['icon'],
+                  date: weather.hourly[index]['dt'],
+                  temp: weather.hourly[index]['temp'],
                 );
               },
             ),

@@ -3,9 +3,12 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/providers/weather.dart';
+
+import '../providers/weather_provider.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
+
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
@@ -13,8 +16,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
-    Position myPostion =
-        Provider.of<Weather>(context, listen: false).myPosition;
+    Position myPostion = context.read<WeatherProvider>().state.position;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Map Screen'),

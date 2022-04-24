@@ -1,28 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
+import 'package:provider/provider.dart';
+
+import '../models/weather.dart';
+import '../providers/weather_provider.dart';
 
 class WeatherInfo extends StatelessWidget {
-  String condition;
-  dynamic temp;
-  double windSpeed;
-  int humidity;
-
-  WeatherInfo({
-    required this.condition,
-    required this.humidity,
-    required this.temp,
-    required this.windSpeed,
-  });
+  const WeatherInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Weather weather = context.read<WeatherProvider>().state.weather;
     Color secondaryColor = Theme.of(context).colorScheme.secondary;
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Text(
-          condition,
+          weather.situation,
           style: TextStyle(
             color: secondaryColor,
           ),
@@ -31,7 +26,7 @@ class WeatherInfo extends StatelessWidget {
           height: size.height * 0.02,
         ),
         GlowText(
-          '${temp.toInt()}°',
+          '${weather.temprature.toInt()}°',
           style: TextStyle(
             color: secondaryColor,
             fontSize: size.height * 0.09,
@@ -51,7 +46,7 @@ class WeatherInfo extends StatelessWidget {
             ),
             Text(
               // convert wind speed from m/sec to km/h
-              '${(windSpeed * 3.6).toInt()} km/h',
+              '${(weather.windSpeed * 3.6).toInt()} km/h',
               style: TextStyle(
                 fontSize: 12,
                 color: secondaryColor,
@@ -67,7 +62,7 @@ class WeatherInfo extends StatelessWidget {
               width: 5,
             ),
             Text(
-              '${humidity.toInt()}%',
+              '${weather.humidity.toInt()}%',
               style: TextStyle(
                 fontSize: 12,
                 color: secondaryColor,
